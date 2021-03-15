@@ -297,8 +297,7 @@ The file that interests us now is word/document.xml
 
 So we open the file in sublime text and are met with this:
 
-![Screenshot of sublime]
-(https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeInitial.png)
+![Screenshot of sublime](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeInitial.png?raw=true)
 
 ```
 The flag.

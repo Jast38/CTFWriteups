@@ -104,9 +104,9 @@ As you can see by the command issued, we now have to specify the profile (**--pr
 By using the **pstree** command, we get the above list of running processes and their
 parent processes..
 What immediatley stands out is one of the last processes running was **WINWORD.EXE** which
-is Microsoft Word having the PID 2760. As this was one of the last processes running, the
+is, Microsoft Word, having the PID 2760. As this was one of the last processes running, the
 probability of finding the flag there was pretty high. But as processes can hide
-themselves while running, I issued one last command to search for possibly hidden
+themselves while running, we issue another command to search for possibly hidden
 processes.
 
 ```
@@ -159,8 +159,8 @@ Offset(P)  Name                    PID pslist psscan thrdproc pspcid csrss sessi
 ```
 
 As you can see in the column **pslist**, all processes would show up using that command
-and therefore the **pstree** command as well. So there are no hidden processes, so lets
-start investigating the MSWORD.EXE process. So lets examine this process. We do that by
+and therefore also while using the **pstree** command. So there are no hidden processes, so lets
+start investigating the MSWORD.EXE process. We do that by
 using the command **procdump** and **memdump** and specifying the PID of the process to
 dump, in our case **-p 2760**.
 
@@ -293,26 +293,28 @@ $ mkdir zip
 $ unzip file.zip -d zip
 ```
 
-The file that interests us now is word/document.xml
+The file that interests us now is `word/document.xml`
 
 So we open the file in sublime text and are met with this:
 
 ![Screenshot of sublime](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeInitial.png?raw=true)
 
 To nicen this we can use a Sublime Addon called Indent XML and after using that, we end up
-with a much more readable file:
+with a much more readable file (the screenshot only shows a part of the file, as it was
+pretty long):
 
 ![Screenshot of readable file](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeReadable.png)
 
 Bingo. So here we have our flag, each character contained in `<w:t>f</w:t>`, one per line.
 Using Sublimes Find and Replace function we can select all those parts of our flag using
-the regex `<w:t>.</w:t>`, mark them and cut them out to delete the remaining lines and
-paste them back in again (just because I was apparently to dumb to figure out the regex to
-mark all but the regex).
+the RegEx `<w:t>.</w:t>` (which matches everything that is surrounded by `<w:t>` and `</w:t>`), mark them and cut them out to delete the remaining lines and
+paste them back in again (just because I was apparently to dumb to figure out the RegEx to
+mark all but the pattern).
 
 ![Screenshot of readable file](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeFlag.png)
 
-To extract the flag we can use a Regex once again. We search for `<w:t>|</w:t>|\n` and
+To extract the flag we can use a RegEx once again. We search for `<w:t>|</w:t>|\n`, which
+matches every tag and newline character, and
 replace them with an empty string and there we have our flag.
 ```
 flag{c442f9ee67c7ab471bb5643a9346cf5e}

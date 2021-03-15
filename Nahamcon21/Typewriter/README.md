@@ -299,6 +299,23 @@ So we open the file in sublime text and are met with this:
 
 ![Screenshot of sublime](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeInitial.png?raw=true)
 
+To nicen this we can use a Sublime Addon called Indent XML and after using that, we end up
+with a much more readable file:
+
+![Screenshot of readable file](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeReadable.png)
+
+Bingo. So here we have our flag, each character contained in `<w:t>f</w:t>`, one per line.
+Using Sublimes Find and Replace function we can select all those parts of our flag using
+the regex `<w:t>.</w:t>`, mark them and cut them out to delete the remaining lines and
+paste them back in again (just because I was apparently to dumb to figure out the regex to
+mark all but the regex).
+
+![Screenshot of readable file](https://github.com/Jast38/CTFWriteups/blob/main/Nahamcon21/Typewriter/assets/SublimeFlag.png)
+
+To extract the flag we can use a Regex once again. We search for `<w:t>|</w:t>|\n` and
+replace them with an empty string and there we have our flag.
 ```
-The flag.
+flag{c442f9ee67c7ab471bb5643a9346cf5e}
 ```
+
+In conclusion was this a very nice forensic challenge and I learned a lot on the way.
